@@ -1,7 +1,7 @@
 #include<stdio.h>
 #define N 1000
 
-__global__ void add(int *a, int *b, int *c, int N) {
+__global__ void add(int *a, int *b, int *c) {
     int idx = threadIdx.x + blockIdx.x * blockDim.x;
     if(idx < N) c[idx] = a[idx] + b[idx];
 }
@@ -18,8 +18,8 @@ int main() {
     }
     cudaMemcpy(dev_a, a, N * sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(dev_b, b, N * sizeof(int), cudaMemcpyHostToDevice);
-    dim3 M(256);
-    add<<<(N + M - 1) / M, M>>>(a, b, c, N);
+    int M = 256;
+    add<<<(N + M - 1) / M, M>>>(a, b, c);
     cudaMemcpy(c, dev_c, N * sizeof(int), cudaMemcpyDeviceToHost);
     for(int i = 0; i < N; i++) printf("%d + %d = %d\n", a[i], b[i], c[i]);
     cudaFree(dev_a);
