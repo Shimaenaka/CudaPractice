@@ -18,7 +18,7 @@ int main() {
     }
     cudaMemcpy(dev_a, a, N * sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(dev_b, b, N * sizeof(int), cudaMemcpyHostToDevice);
-    int M = 256;
+    int M = 128;
     add<<<(N + M - 1) / M, M>>>(a, b, c);
     cudaMemcpy(c, dev_c, N * sizeof(int), cudaMemcpyDeviceToHost);
     for(int i = 0; i < N; i++) printf("%d + %d = %d\n", a[i], b[i], c[i]);
