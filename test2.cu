@@ -2,7 +2,7 @@
 #define N 1000
 
 __global__ void add(double *a, double *b, double *c) {
-    double idx = threadIdx.x + blockIdx.x * blockDim.x;
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
     if(idx < N) c[idx] = a[idx] + b[idx];
 }
 
