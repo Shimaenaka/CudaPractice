@@ -18,7 +18,7 @@ __global__ void bfs_kernel(int *adjList, int *adjListSizes, int *distances, int 
             if (distances[neighbor] == INF) {
                 distances[neighbor] = distances[idx] + 1;
                 newFrontier[neighbor] = 1;
-                flag_continue = true;
+                *flag_continue = true;
             }
         }
     }
