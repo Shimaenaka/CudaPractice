@@ -14,7 +14,7 @@ include_directories(include)
 
 # Set the source files
 set(SOURCES
-    src/testbfs.cpp
+    src/testBFS.cpp
     src/graph.cpp
     src/bfs.cu
 )
