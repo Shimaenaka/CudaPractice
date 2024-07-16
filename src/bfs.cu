@@ -9,6 +9,10 @@ __global__ void bfs_kernel(int *adjList, int *adjListSizes, int *distances, int 
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx >= numNodes) return;
 
+    if(idx == 0) {
+        printf("Hello\n");
+    }
+
     if (frontier[idx]) {
         frontier[idx] = 0;
         int start = adjListSizes[idx];
