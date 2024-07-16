@@ -40,6 +40,8 @@ void bfs(int startNode, const Graph &graph) {
     }
     adjListSizes[numNodes] = totalEdges;
 
+    printf("Line43\n");
+
     int *d_adjList, *d_adjListSizes, *d_distances, *d_frontier, *d_newFrontier;
     cudaMalloc(&d_adjList, adjList.size() * sizeof(int));
     cudaMalloc(&d_adjListSizes, adjListSizes.size() * sizeof(int));
@@ -47,15 +49,21 @@ void bfs(int startNode, const Graph &graph) {
     cudaMalloc(&d_frontier, numNodes * sizeof(int));
     cudaMalloc(&d_newFrontier, numNodes * sizeof(int));
 
+    printf("Line52\n");
+
     std::vector<int> distances(numNodes, INF);
     std::vector<int> frontier(numNodes, 0);
     distances[startNode] = 0;
     frontier[startNode] = 1;
 
+    printf("Line59\n");
+
     cudaMemcpy(d_adjList, adjList.data(), adjList.size() * sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(d_adjListSizes, adjListSizes.data(), adjListSizes.size() * sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(d_distances, distances.data(), numNodes * sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(d_frontier, frontier.data(), numNodes * sizeof(int), cudaMemcpyHostToDevice);
+
+    printf("Line66\n");
 
     int blockSize = 256;
     int numBlocks = (numNodes + blockSize - 1) / blockSize;
@@ -63,6 +71,7 @@ void bfs(int startNode, const Graph &graph) {
     bool *h_continue = new bool;
     bool *d_continue;
     cudaMalloc(&d_continue, sizeof(bool));
+    printf("Line74\n");
     do {
         *h_continue = false;
         cudaMemcpy(d_continue, h_continue, sizeof(bool), cudaMemcpyHostToDevice);
@@ -73,6 +82,8 @@ void bfs(int startNode, const Graph &graph) {
         cudaMemcpy(d_frontier, d_newFrontier, numNodes * sizeof(int), cudaMemcpyDeviceToDevice);
 
     } while (*h_continue);
+
+    printf("Line85\n");
 
     cudaMemcpy(distances.data(), d_distances, numNodes * sizeof(int), cudaMemcpyDeviceToHost);
 
@@ -87,4 +98,5 @@ void bfs(int startNode, const Graph &graph) {
     cudaFree(d_newFrontier);
     cudaFree(d_continue);
     delete h_continue;
+    printf("Line100\n");
 }
