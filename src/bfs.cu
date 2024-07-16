@@ -74,6 +74,11 @@ void bfs(int startNode, const Graph &graph) {
 
         bfs_kernel<<<numBlocks, blockSize>>>(d_adjList, d_adjListSizes, d_distances, d_frontier, d_newFrontier, numNodes, d_continue);
         cudaDeviceSynchronize();
+        cudaError_t error = cudaGetLastError();
+        if (error != cudaSuccess) {
+            std::cerr << "CUDA error in bfs_kernel: " << cudaGetErrorString(error) << std::endl;
+            break;
+        }
 
         cudaMemcpy(h_continue, d_continue, sizeof(bool), cudaMemcpyDeviceToHost);
         cudaMemcpy(d_frontier, d_newFrontier, numNodes * sizeof(int), cudaMemcpyDeviceToDevice);
