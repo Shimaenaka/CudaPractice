@@ -10,7 +10,7 @@ project(BFS_CUDA)
 
 # Find CUDA
 find_package(CUDA REQUIRED)
-set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -O3 -gencode arch=compute_60,code=sm_60")
+set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS}")
 
 # Include directories
 include_directories(include)

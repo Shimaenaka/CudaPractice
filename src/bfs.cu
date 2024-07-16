@@ -6,13 +6,8 @@
 #define INF 999999
 
 __global__ void bfs_kernel(int *adjList, int *adjListSizes, int *distances, int *frontier, int *newFrontier, int numNodes, bool *flag_continue) {
-    printf("H\n");
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx >= numNodes) return;
-
-    if(idx == 0) {
-        printf("Hello\n");
-    }
 
     if (frontier[idx]) {
         frontier[idx] = 0;
