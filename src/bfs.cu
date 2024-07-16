@@ -53,6 +53,7 @@ void bfs(int startNode, const Graph &graph) {
 
     std::vector<int> distances(numNodes, INF);
     std::vector<int> frontier(numNodes, 0);
+    printf("%d\n",startNode);
     distances[startNode] = 0;
     frontier[startNode] = 1;
 
