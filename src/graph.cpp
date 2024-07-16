@@ -1,6 +1,7 @@
 #include "graph.h"
 
 Graph::Graph(int numNodes, int numEdges, const std::vector<std::pair<int, int>> &edges) {
+    this->numNodes = numNodes;
     adjList.resize(numNodes);
     for (const auto &edge : edges) {
         adjList[edge.first].push_back(edge.second);
