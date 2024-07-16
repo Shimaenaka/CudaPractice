@@ -63,7 +63,7 @@ void bfs(int startNode, const Graph &graph) {
     cudaMemcpy(d_frontier, frontier.data(), numNodes * sizeof(int), cudaMemcpyHostToDevice);
 
     int blockSize = 256;
-    int numBlocks = (numNodes + blockSize - 1) / blockSize;
+    int numBlocks = (1000 + blockSize - 1) / blockSize;
 
     bool *h_continue = new bool;
     bool *d_continue;

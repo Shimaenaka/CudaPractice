@@ -2,7 +2,6 @@
 #define N 1000
 
 __global__ void add(int *a, int *b, int *c) {
-    printf("H\n");
     int idx = threadIdx.x + blockIdx.x * blockDim.x;
     if(idx < N) c[idx] = a[idx] + b[idx];
 }
