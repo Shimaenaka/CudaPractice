@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits.h>
 #include "graph.h"
+#include "graph.cu"
 
 void sssp(Graph& graph, int src);
 
