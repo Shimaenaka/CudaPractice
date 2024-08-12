@@ -17,7 +17,6 @@ __global__ void relaxEdges(Edge* edges, int* distances, int E, bool* updated) {
         }
     }
 }
-0
 
 void sssp(Graph& graph, int src) {
     int V = graph.V;
