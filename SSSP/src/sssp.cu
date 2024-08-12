@@ -4,12 +4,12 @@
 
 __global__ void relaxEdges(Edge* edges, int* distances, int E, bool* updated) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    printf("Thread %d\n", i);
     if (i < E) {
         int u = edges[i].src;
         int v = edges[i].dest;
         int weight = edges[i].weight;
 
+        printf("Checking edge %d %d\n", u, v);
         if (distances[u] != INT_MAX && distances[u] + weight < distances[v]) {
             printf("Relaxing edge %d %d\n", u, v);
             distances[v] = distances[u] + weight;
