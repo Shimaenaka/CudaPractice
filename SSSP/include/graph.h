@@ -11,11 +11,12 @@ struct Edge {
 
 class Graph {
 public:
-    int V, E; // Number of vertices and edges
+    int V, E;
     std::vector<Edge> edges;
 
     Graph(int V, int E);
     void addEdge(int src, int dest, int weight);
+    __global__ void relaxEdges(Edge* edges, int* distances, int E, bool* updated);
 };
 
 #endif

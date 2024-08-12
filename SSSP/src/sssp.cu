@@ -6,12 +6,12 @@ void sssp(Graph& graph, int src);
 
 int main() {
     int V, E;
-    cin>>V>>E;
+    std::cin>>V>>E;
     Graph graph(V, E);
 
     for (int i = 0; i < E; ++i) {
         int src, dest, weight;
-        cin>>src>>dest>>weight;
+        std::cin>>src>>dest>>weight;
         graph.addEdge(src, dest, weight);
     }
 
