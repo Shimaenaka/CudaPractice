@@ -43,7 +43,7 @@ void sssp(Graph& graph, int src) {
     for (int i = 0; i < V - 1; ++i) {
         bool updated = false;
         cudaMemcpy(d_updated, &updated, sizeof(bool), cudaMemcpyHostToDevice);
-        relaxEdges<<<numBlocks, blockSize>>>(d_edges, distances, E, d_updated);
+        relaxEdges<<<numBlocks, blockSize>>>(d_edges, d_distances, E, d_updated);
         cudaMemcpy(&updated, d_updated, sizeof(bool), cudaMemcpyDeviceToHost);
         if (!updated) break;
     }
@@ -56,6 +56,7 @@ void sssp(Graph& graph, int src) {
 
     cudaFree(d_edges);
     cudaFree(d_updated);
+    cudaFree(d_distances);
     delete[] distances;
 }
 
