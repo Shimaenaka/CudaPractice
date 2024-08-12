@@ -10,29 +10,13 @@ __global__ void relaxEdges(Edge* edges, int* distances, int E, bool* updated) {
         int weight = edges[i].weight;
 
         if (distances[u] != INT_MAX && distances[u] + weight < distances[v]) {
+            printf("Relaxing edge %d %d\n", u, v);
             distances[v] = distances[u] + weight;
             *updated = true;
         }
     }
 }
-
-void sssp(Graph& graph, int src);
-
-int main() {
-    int V, E;
-    std::cin>>V>>E;
-    Graph graph(V, E);
-
-    for (int i = 0; i < E; ++i) {
-        int src, dest, weight;
-        std::cin>>src>>dest>>weight;
-        graph.addEdge(src, dest, weight);
-    }
-
-    sssp(graph, 0);
-
-    return 0;
-}
+0
 
 void sssp(Graph& graph, int src) {
     int V = graph.V;
@@ -67,4 +51,20 @@ void sssp(Graph& graph, int src) {
     cudaFree(d_edges);
     cudaFree(d_updated);
     delete[] distances;
+}
+
+int main() {
+    int V, E;
+    std::cin>>V>>E;
+    Graph graph(V, E);
+
+    for (int i = 0; i < E; ++i) {
+        int src, dest, weight;
+        std::cin>>src>>dest>>weight;
+        graph.addEdge(src, dest, weight);
+    }
+
+    sssp(graph, 0);
+
+    return 0;
 }
