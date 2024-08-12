@@ -23,6 +23,7 @@ void sssp(Graph& graph, int src) {
     int V = graph.V;
     int E = graph.E;
     int* distances;
+    int* d_distances;
     Edge* d_edges;
     bool* d_updated;
 
@@ -32,7 +33,9 @@ void sssp(Graph& graph, int src) {
 
     cudaMalloc(&d_edges, E * sizeof(Edge));
     cudaMalloc(&d_updated, sizeof(bool));
+    cudaMalloc(&d_distances, V * sizeof(int));
     cudaMemcpy(d_edges, graph.edges.data(), E * sizeof(Edge), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_distances, distances, V * sizeof(int), cudaMemcpyHostToDevice);
 
     int blockSize = 256;
     int numBlocks = (E + blockSize - 1) / blockSize;
@@ -44,6 +47,8 @@ void sssp(Graph& graph, int src) {
         cudaMemcpy(&updated, d_updated, sizeof(bool), cudaMemcpyDeviceToHost);
         if (!updated) break;
     }
+
+    cudaMemcpy(distances, d_distances, V * sizeof(int), cudaMemcpyDeviceToHost);
 
     std::cout << "Vertex Distance from Source\n";
     for (int i = 0; i < V; ++i)
