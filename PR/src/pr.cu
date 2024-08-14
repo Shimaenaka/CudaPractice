@@ -62,11 +62,17 @@ void pageRank(Graph &graph, int iterations = 100, float damping = 0.85) {
 }
 
 int main(){
-    int v;
+    int v, e;
     std::cin >> v;
-
     Graph graph(v);
 
+    std::cin >> e;
+    for(int i = 0; i < e; i++){
+        int src, dest;
+        std::cin >> src >> dest;
+        graph.addEdge(src, dest);
+    }
+    
     pageRank(graph);
 
     return 0;
