@@ -9,10 +9,10 @@ __global__ void relaxEdges(Edge* edges, int* distances, int E, bool* updated) {
         int v = edges[i].dest;
         int weight = edges[i].weight;
 
-        printf("Checking edge %d %d %d\n", u, v, weight);
-        printf("Distance %d %d\n", distances[u], distances[v]);
+        // printf("Checking edge %d %d %d\n", u, v, weight);
+        // printf("Distance %d %d\n", distances[u], distances[v]);
         if (distances[u] != INT_MAX && distances[u] + weight < distances[v]) {
-            printf("Relaxing edge %d %d\n", u, v);
+            // printf("Relaxing edge %d %d\n", u, v);
             distances[v] = distances[u] + weight;
             *updated = true;
         }
